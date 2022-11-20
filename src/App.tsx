@@ -2,8 +2,10 @@ import React from "react";
 import { count } from "./types";
 import Navbar from "./component/Navbar";
 import Calculator from "./component/Calculator";
+import Footer from "./component/Footer";
 
 function App() {
+  
   const [value, setValue] = React.useState<number>(0);
   const incrementCount = (prop: string) => {
     if (prop === "plus") {
@@ -13,6 +15,7 @@ function App() {
   const decrementCount = () => {
     setValue(value - 1);
   };
+
   return (
     <div className="font-sans">
       {/* <>
@@ -28,6 +31,7 @@ function App() {
       </> */}
       <Navbar />
       <Calculator />
+      <Footer />
     </div>
   );
 }
