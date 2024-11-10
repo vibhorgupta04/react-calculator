@@ -2,7 +2,7 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className="">
+    <div>
       <span className="px-5 py-10 text-xl font-bold flex items-center ">
         <div className="cursor-pointer flex gap-2 items-center  ">
           <span className="border-card bg-btn shadow-button rounded-md px-4 py-2">
