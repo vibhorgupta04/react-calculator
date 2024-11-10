@@ -1,93 +1,160 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-const Calculator = () => {
+const Calculator: React.FC = () => {
+  const [display, setDisplay] = useState<string>("");
+  const [result, setResult] = useState<number | string | null>(null);
+
+  const handleButtonClick = (value: string) => {
+    if (value === "C") {
+      setDisplay("");
+      setResult(null);
+    } else if (value === "←") {
+      setDisplay(display.slice(0, -1));
+    } else if (value === "=") {
+      try {
+        setResult(eval(display) as number);
+      } catch {
+        setResult("Error");
+      }
+    } else {
+      setDisplay(display + value);
+      setResult(null);
+    }
+  };
+
   return (
-    <div className="w-full my-5">
-      <div className="py-5 ">
-        <div className="mx-auto py-4 w-346 rounded-md bg-gray-1 shadow-button-1 border-card ">
-
-          {/* value */}
-
-          <div className="py-6">
-            <div className="px-5 py-5 text-right  text-2xl text-gray">
-              1000+700+90
+    <div className="w-full">
+      <div className="py-5">
+        <div className="mx-auto py-4 w-346 rounded-md bg-gray-1 shadow-button-1 border-card">
+          {/* Display */}
+          <div className="py-3">
+            <div className="px-3 py-3 text-right text-2xl text-gray">
+              {display || "0"}
             </div>
-            <div className="flex justify-between items-center px-5 py-5 text-4xl ">
+            <div className="flex justify-between items-center px-3 py-3 text-2xl">
               <span className="text-gray text-2xl">=</span>
-              <span className="text-orange text-right">1790</span>
+              <span
+                className="text-orange text-right"
+                style={{
+                  visibility: !result ? "hidden" : "visible",
+                }}
+              >
+                {result ?? "0"}
+              </span>
             </div>
           </div>
 
           {/* Line */}
+          <div className="py-1 mx-auto border-t border-gray" />
 
-          <div className="py-1 mx-auto border-t border-gray " />
-
-          {/* button */}
-
+          {/* Buttons */}
           <div className="mx-4 py-6 flex gap-6 flex-col text-gray text-xl">
             <div className="flex justify-between text-orange">
-              <div className="width-98 px-5 py-5 bg-button text-center shadow-button rounded-md cursor-pointer border-card ">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="width-98 px-5 py-5 bg-button text-center shadow-button rounded-md cursor-pointer border-card"
+                onClick={() => handleButtonClick("C")}
+              >
                 C
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card"
+                onClick={() => handleButtonClick("←")}
+              >
                 ←
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card"
+                onClick={() => handleButtonClick("*")}
+              >
                 *
-              </div>
+              </motion.div>
             </div>
             <div className="flex justify-between">
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                7
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                8
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                9
-              </div>
-              <div className="px-5 py-5 bg-button text-orange shadow-button rounded-md cursor-pointer border-card ">
-                /
-              </div>
+              {["7", "8", "9", "/"].map((val) => (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  key={val}
+                  className={`px-5 py-5 bg-button ${
+                    val === "/" ? "text-orange" : ""
+                  } shadow-button rounded-md cursor-pointer border-card`}
+                  onClick={() => handleButtonClick(val)}
+                >
+                  {val}
+                </motion.div>
+              ))}
             </div>
             <div className="flex justify-between">
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                4
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                5
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                6
-              </div>
-              <div className="px-5 py-5 bg-button text-orange shadow-button rounded-md cursor-pointer border-card ">
-                -
-              </div>
+              {["4", "5", "6", "-"].map((val) => (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  key={val}
+                  className={`px-5 py-5 bg-button ${
+                    val === "-" ? "text-orange" : ""
+                  } shadow-button rounded-md cursor-pointer border-card`}
+                  onClick={() => handleButtonClick(val)}
+                >
+                  {val}
+                </motion.div>
+              ))}
             </div>
             <div className="flex justify-between">
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                1
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                2
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
-                3
-              </div>
-              <div className="px-5 py-5 bg-button text-orange shadow-button rounded-md cursor-pointer border-card ">
-                +
-              </div>
+              {["1", "2", "3", "+"].map((val) => (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  key={val}
+                  className={`px-5 py-5 bg-button ${
+                    val === "+" ? "text-orange" : ""
+                  } shadow-button rounded-md cursor-pointer border-card`}
+                  onClick={() => handleButtonClick(val)}
+                >
+                  {val}
+                </motion.div>
+              ))}
             </div>
             <div className="flex justify-between text-orange">
-              <div className="width-98 px-5 py-5 bg-button text-center shadow-button rounded-md cursor-pointe border-card ">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="width-98 px-5 py-5 bg-button text-center shadow-button rounded-md cursor-pointer border-card"
+                onClick={() => handleButtonClick("0")}
+              >
                 0
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card"
+                onClick={() => handleButtonClick(".")}
+              >
                 .
-              </div>
-              <div className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card ">
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="px-5 py-5 bg-button shadow-button rounded-md cursor-pointer border-card"
+                onClick={() => handleButtonClick("=")}
+              >
                 =
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

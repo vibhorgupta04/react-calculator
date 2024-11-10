@@ -1130,3 +1130,49 @@ body {
     align-items: stretch;
   }
 }
+
+/* Custom CSS for Navbar */
+.navbar-container {
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.navbar-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.navbar-item:hover {
+  transform: scale(1.05);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.navbar-icon {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.navbar-icon:hover {
+  transform: scale(1.1);
+}
+
+.navbar-text {
+  color: rgba(68, 71, 106, 1);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
